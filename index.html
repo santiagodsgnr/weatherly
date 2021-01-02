@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Climaly App</title>
+  <meta name="description" content="Climaly App | Consulta el clima de tu ciudad">
+  <meta name="theme-color" content="#F0DB4F">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="shortcut icon" type="image/png" href="./img/ProgramadorFitness.png">
+  <link rel="apple-touch-icon" href="./ProgramadorFitness.png">
+  <link rel="apple-touch-startup-image" href="./ProgramadorFitness.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div id="app">
+    <section  v-if="weatherData != null">
+      <div class="container">
+          <div class="info-date" :class="bgClass">
+              <div class="text-date">
+                  <h2>{{weatherData.name}} - {{weatherData.sys.country}}</h2>
+                  <p>{{timeInfo}}</p>
+              </div>
+              <div class="icon-date">
+                  <img :src="iconDay" class="icon-date_img">
+              </div>
+          </div>
+          <div class="search">
+              <input type="text" required placeholder="Busca la ciudad" v-model="search" @keyup.enter="getWeatherBySearch()">
+              <button type="submit" class="button-submit" @click.prevent="getWeatherBySearch()"><img src="/img/icon-search.svg" alt=""></button>
+          </div>
+          <div class="dashboard">
+              <div class="city">
+                  <h1>{{weatherData.name}}</h1>
+                  <p>{{Math.round(weatherData.main.temp)}}°C / {{Math.round((weatherData.main.temp*9)/5)+32}}°F</p> 
+              </div>
+              <div class="info-weather">
+                  <div class="info-weather-grid">
+                      <div class="info-weather-grid__column">
+                          <img src="/img/icon-wind.svg" class="icon-weather-grid">
+                          <h3>{{Math.round(weatherData.wind.speed)}}km/h</h3>
+                          <h2>VIENTO</h2>
+                      </div>
+                      <div class="info-weather-grid__column">
+                          <img src="/img/icon-humidity.svg"  class="icon-weather-grid">
+                          <h3>{{weatherData.main.humidity}}%</h3>
+                          <h2>HUMEDAD</h2>
+                      </div>
+                  </div>
+              </div>
+              <div class="info-station">
+                  <img :src="`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`" class="icon-station">
+                  <p>{{weatherData.weather[0].description}}</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <header v-else>
+      <div class="logo">
+        <img src="/img/logo.svg" class="logo__img">
+        <div class="main-text">
+          <h1 class="main-text__h1">CLIMALY</h1>
+          <h2 class="main-text__h2">LIVE WEATHER APP</h2>
+          <p class="main-text__p">Conoce el clima de tu ciudad y de cualquier parte del mundo</p>
+        </div>
+      </div>
+
+      <div class="main-button">
+        <button class="button" @click.prevent="getLocation()">Comenzar</button>
+      </div>
+
+    </header>
+
+    
+  </div>
+
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router@2.7.0/dist/vue-router.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/app.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>

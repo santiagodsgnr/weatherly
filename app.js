@@ -3,7 +3,7 @@ const app = new Vue({
     data() {
         return {
             API_URL: 'https://api.openweathermap.org/data/2.5/weather',
-            API_TZ_URL: 'http://api.timezonedb.com/v2.1/get-time-zone',
+            API_TZ_URL: 'https://api.timezonedb.com/v2.1/get-time-zone',
             API_TZ_KEY: '0WC8UY90VR2P',
             API_KEY: '2b0c1c873e8b7bb21e4332b8f0c8bd86',
             showWeatherInfo: false,
